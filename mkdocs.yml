@@ -2,7 +2,7 @@ site_name: Python base
 site_description: курс по основам языка Python для вузов
 
 
-docs_dir: docs
+docs_dir: docs/markdown
 theme:
   name: material
   icon:
