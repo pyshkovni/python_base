@@ -60,6 +60,22 @@ print("Hello, World!")
 
     Пояснение
 
+## Что еще можно изучить?
+
+Для расширения знаний и навыков в области Информатики рекомендую ознакомится со списком курсов ниже. Данные курсы записаны действующими преподавателями кафедр МГУ, МГТУ им. Баумана и МФТИ, которые предлагают фундаментальные основы по изучению подходов к программированию.
+
+* [Язык программирования Python. 2023. ВМК МГУ](https://www.youtube.com/watch?v=Dy_ueC-Girk&list=PL6kSdcHYB3x5PzO26mzRFU6NmsRqd6WgL)
+
+* [Операционные системы 2024. МГТУ кафедра ИУ9](https://youtu.be/cEjAH5ghWbY?si=-RWlNNg6tlFOVrcI)
+
+* [Алгоритмы на Python3 2018. Кафедра информатики МФТИ](https://youtu.be/KdZ4HF1SrFs?si=_iPbI7t3UYCe_alH)
+
+Также предлагаю ознакомится с рядом конференция по теме применения языка Python.
+
+* [MTS True Tech Day. JIT в Python3.13](https://www.youtube.com/watch?v=qaHGzRD3pHg&list=PLBf6S6ZuTomoUSjI_smbTvj-xMouwF0SF&index=1)
+
+* [MTS True Tech Day. Туллинг в Python по управления](https://www.youtube.com/watch?v=Uu1jslSHTOo&list=PLBf6S6ZuTomoUSjI_smbTvj-xMouwF0SF&index=3)
+
 ## Благодарности
 
 Отдельное спасибо хочу передать Ковалеву Антону, моему однокласснику, сокоманднику и просто хорошему другу, без которого я никогда бы не обрел понимание в программировании.
