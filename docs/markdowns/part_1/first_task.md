@@ -24,41 +24,41 @@ my_favorite_songs = 'Waste a Moment, Staying\' Alive, A Sorta Fairytale, Start M
 
 ## Решение
 
-### Вариант решения 1
+??? success "Вариант решения 1"
 
-Воспользуемся индексацией строки и выведем первый трек. Сложно считать индексы в ручную.
+    Воспользуемся индексацией строки и выведем первый трек. Сложно считать индексы в ручную.
 
-```Python
-print(my_favorite_songs[0:14])
-```
+    ```Python
+    print(my_favorite_songs[0:14])
+    ```
 
-### Вариант решения 2
+??? success "Вариант решения 2"
 
-Попробуем найти для первой песни индекс запятой, которая разделяет песни. Используем методы `find` и `rfind`. Тем не менее, найти запятые для первой и последней песней не составит труда, но как быть с песнями в середине строки.
+    Попробуем найти для первой песни индекс запятой, которая разделяет песни. Используем методы `find` и `rfind`. Тем не менее, найти запятые для первой и последней песней не составит труда, но как быть с песнями в середине строки.
 
-```Python
-# Первая песня
-print(my_favorite_songs[:my_favorite_songs.find(',')])
-# Последняя песня
-print(my_favorite_songs[my_favorite_songs.rfind(','):])
-```
+    ```Python
+    # Первая песня
+    print(my_favorite_songs[:my_favorite_songs.find(',')])
+    # Последняя песня
+    print(my_favorite_songs[my_favorite_songs.rfind(','):])
+    ```
 
-### Вариант решения 3
+??? success "Вариант решения 3"
 
-Воспользуемся другим методом строк – `split`, который позволяет разделить строку по символам и превратить ее в список.
+    Воспользуемся другим методом строк – `split`, который позволяет разделить строку по символам и превратить ее в список.
 
-```Python
-# разделить строку по запятой
-song_list = my_favorite_songs.split(', ')
-print(song_list) # ['Waste a Moment', " Staying' Alive", ' A Sorta Fairytale', ' Start Me Up', ' New Salvation']
+    ```Python
+    # разделить строку по запятой
+    song_list = my_favorite_songs.split(', ')
+    print(song_list) # ['Waste a Moment', " Staying' Alive", ' A Sorta Fairytale', ' Start Me Up', ' New Salvation']
 
-# тип данных song_list
-print(type(song_list)) # <class 'list'>
-# длина song_list
-print(len(song_list)) # 5
+    # тип данных song_list
+    print(type(song_list)) # <class 'list'>
+    # длина song_list
+    print(len(song_list)) # 5
 
-print(song_list[0])  # первая песня
-print(song_list[-1]) # последняя песня
-print(song_list[1])  # вторая песня 
-print(song_list[-2]) # предпоследняя песня
-```
+    print(song_list[0])  # первая песня
+    print(song_list[-1]) # последняя песня
+    print(song_list[1])  # вторая песня 
+    print(song_list[-2]) # предпоследняя песня
+    ```
