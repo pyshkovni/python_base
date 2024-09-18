@@ -4,6 +4,7 @@ site_description: курс по основам языка Python для вузо
 
 docs_dir: docs/markdowns
 theme:
+  custom_dir: overrides
   name: material
   icon:
     logo: material/language-python
