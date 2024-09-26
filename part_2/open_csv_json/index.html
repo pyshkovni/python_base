@@ -1,0 +1,1884 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="курс по основам языка Python для вузов">
+      
+      
+      
+      
+        <link rel="prev" href="../site_package/">
+      
+      
+        <link rel="next" href="../bytes/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.38">
+    
+    
+      
+        <title>Режимы открытия файлов. Работа с форматами csv, json, xml, yaml - Python base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#csv-json-xml-yaml" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+
+    Если вы обнаружили ошибку, пишите <a rel="telegram" href="https://t.me/pyshkovni"><strong>@pyshkovni</strong></a> или <a href="https://github.com/pyshkovni/python-base-course/issues"><strong>сообщите об ошибке в github</strong></a>. Благодарю за помощь!
+
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="Python base" class="md-header__button md-logo" aria-label="Python base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Python base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Режимы открытия файлов. Работа с форматами csv, json, xml, yaml
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Информация о курсе
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part_1/intro/" class="md-tabs__link">
+          
+  
+  Раздел 1. Основы языка Python
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../intro/" class="md-tabs__link">
+          
+  
+  Раздел 2. Импорт. Работа с файлами
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Python base" class="md-nav__button md-logo" aria-label="Python base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    Python base
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Информация о курсе
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Раздел 1. Основы языка Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Раздел 1. Основы языка Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Что такое Python? Начало работы
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/int_and_float/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Типы данных. Целые числа и числа с плавающей точкой
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/vars_and_str/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Переменные. Строки
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/first_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Задача №1. Вывод песен из строки
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/list_and_tuples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Коллекции. Списки и кортежи
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/second_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Задача №2. Изменение списка покупок. Форматированный вывод
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/if_while_for/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Условный оператор if. Операторы цикла while и for
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/third_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Задача №3. Словари и их свойства. Списковое включение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part_1/functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Функции. Свойства и параметры функций
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Раздел 2. Импорт. Работа с файлами
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Раздел 2. Импорт. Работа с файлами
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Импорт. Работа с файлами
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_and_package/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Импорт из модулей и пакетов
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../decimal_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Стандартная библиотека Python. Модули pprint, sys, decimal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Обработка случайных значений. Модуль random
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datetime_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Обработка форматов даты и времени. Модули time, datetime
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../site_package/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Внешние пакеты. Пакеты pandas, python-docx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Режимы открытия файлов. Работа с форматами csv, json, xml, yaml
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Режимы открытия файлов. Работа с форматами csv, json, xml, yaml
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#open" class="md-nav__link">
+    <span class="md-ellipsis">
+      Функция open() для чтения и записи файлов
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#with" class="md-nav__link">
+    <span class="md-ellipsis">
+      Оператор with
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Хранение данных
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Формат CSV
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Формат CSV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csv-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Операции с CSV-файлами
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csv_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Применение CSV формата
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Формат JSON
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Формат JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Операции с JSON-файлами
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Другие форматы обмена данными
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Другие форматы обмена данными">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Формат XML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Операции с XML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Формат YAML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Операции с YAML
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Промежуточные итоги
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Дополнительные темы
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Дополнительные темы
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bytes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Кодировки и байты
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regexp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Регулярные выражения
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#open" class="md-nav__link">
+    <span class="md-ellipsis">
+      Функция open() для чтения и записи файлов
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#with" class="md-nav__link">
+    <span class="md-ellipsis">
+      Оператор with
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Хранение данных
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Формат CSV
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Формат CSV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csv-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Операции с CSV-файлами
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csv_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Применение CSV формата
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Формат JSON
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Формат JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Операции с JSON-файлами
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Другие форматы обмена данными
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Другие форматы обмена данными">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Формат XML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Операции с XML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Формат YAML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Операции с YAML
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Промежуточные итоги
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="csv-json-xml-yaml">Режимы открытия файлов. Работа с форматами csv, json, xml, yaml</h1>
+<h2 id="open">Функция open() для чтения и записи файлов</h2>
+<p>Скрипт, который пишет программист, чаще всего взаимодействует с операционной системой и файлами, которые в ней находятся. Поэтому файлы и данные, которые они содержат, очень полезны. В зависимости от расширения файла, интерпретатор Python может взаимодействовать с ним по разному с учетом выбранного режима.</p>
+<p><strong>Файл — это упорядоченная совокупность байтов, которая хранится на диске.</strong> Его можно открыть для чтения и прочитать в память содержимое. Функция <code>open()</code> считывает файл как объект.</p>
+<p><strong>Режим чтения</strong></p>
+<p>Вместе с функцией <code>open()</code> необходимо указать:</p>
+<ul>
+<li>Путь до указанного файла <code>"yesterday.txt"</code> в виде строки.</li>
+<li>Параметр <code>r</code> — чтение в текстовом режиме.</li>
+<li>Метод <code>read()</code> — получить содержимое файла.</li>
+<li>Метод <code>close()</code> — закрыть файла, чтобы очистить буфер.</li>
+</ul>
+<p>Скачать файл "yesterday.txt" <a href="../files/yesterday.txt">можно по ссылке</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;yesterday.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Бинарное чтение</strong></p>
+<p>В результате открытия файла в режиме бинарного чтения в выводе можно увидеть все управляющие символы, например перенос строки <code>\n</code>. Параметр <code>rb</code> — бинарное чтение</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">## открытие файлов с ASCII2</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;yesterday.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+</code></pre></div>
+<p>Однако если открыть в бинарном режиме файл, содержащий кириллицу, то при выводе на экран получится набор шестнадцатеричных кодов. Символы, входящие в ASCII2, отображаются так как есть.</p>
+<p>Скачать файл "borodino.txt" <a href="../files/borodino.txt">можно по ссылке</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">## открытие файлов с кириллицей</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;borodino.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Запись содержимого</strong></p>
+<p>Режим записи <code>w</code> позволяет сохранять содержимое буфера в новый файл. Если в текущем каталоге уже есть файл с тем же именем, то <strong>при открытие в режиме <code>w</code> содержимое существующего файла стирается.</strong> Учитывайте, что имя файла может быть с путем по файловой системе. Если путь не указан — то ищется в рабочей директории скрипта. Если файл не найден, возникает исключение <code>FileNotFoundError</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;out.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">file_content</span> <span class="o">=</span> <span class="s1">&#39;hello world!&#39;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">file</span><span class="o">.</span><span class="n">c</span>
+</code></pre></div>
+<p>Также существует запись в бинарном режиме — <code>wb</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;out.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">file_content</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;hello&#39;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>Другие режимы открытия файлов</strong></p>
+<p>В существующие файлы можно добавлять строки, используя режим <code>а</code>. При этом информация добавляется в конец файла. Для открытого объекта файла можно вызывать метод файла для записи.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;out.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> 
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">file_content</span> <span class="o">=</span> <span class="s1">&#39;How are you? &#39;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>Для того, чтобы прочитать и добавить в файл, можно использовать режим чтения с записью <code>r+</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;yesterday.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r+&#39;</span><span class="p">)</span> 
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Beatles!&#39;</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">pprint</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+</code></pre></div>
+<p>Наоборот, записать и прочесть файл, можно с помощью режима <code>w+</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;out.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Next Song – Yellow Submarine&#39;</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">pprint</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="with">Оператор with</h2>
+<p><strong>Как в потоке программы можно открыть файл?</strong> Для этого используют несколько форм работы с файлами.</p>
+<p><strong>Вариант №1. Чтение построчно</strong></p>
+<p>Файл можно прочитать построчно с помощью цикла, перебрав объект. Чтение происходить из буфера по одной строчке. Если буфер переполнен то, следующий кусочек файла считывается с диска. Выгодно, если файл большого объема.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;yesterday.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>Вариант №2. С помощью readlines</strong></p>
+<p>Метод <code>readlines()</code> представляет каждую строку, как элемент списка. В результате доступность к строкам растет. Однако, если файл объемный, то весь объект документа сразу выгрузится в память. Это не производительно! Желательно использовать только для небольших файлов.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;yesterday.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> 
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>Вариант №3. Применение цикла while</strong></p>
+<p>Каждую строчку можно проверить на условие. Читаем построчно, до тех пор пока не выполнится условие. Чтобы не читать файл полностью, можно воспользоваться оператором <code>break</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;yesterday.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">line</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">while</span> <span class="n">line</span><span class="p">:</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">line</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="k">if</span> <span class="s1">&#39;easy game&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Good Game, Well Played&#39;</span><span class="p">)</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>        <span class="k">break</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There is no game to play!&#39;</span><span class="p">)</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Зачем закрывать файлы file.close()?</p>
+<p>Обратите внимание, что в каждом из способов надо следить, чтобы файл был закрыт. Иначе при работе с большим количеством незакрытых файлов операционная система может отказать в открытии новых файлов.</p>
+</div>
+<p><strong>Вариант №4. Оператор with</strong></p>
+<p>Чтобы упросить работу с проверкой открытия файла, лучше использовать оператор <code>with</code>. C помощью него файл закроется автоматически. Если внутри блока кода возникает ошибка, то оператор <code>with</code> закроет файл. Оператор <code>with</code> также используется, когда нужно закрыть соединение с внешними ресурсами.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;yesterday.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;файл закрыт?:&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">closed</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="_1">Хранение данных</h2>
+<p>Компьютер использует данные разного формата для решения разного рода задач. Обычно разнообразие форматов связано с отличием программных интерфейсов и структурой самих данных. Существуют стандарты, которые утверждают универсальные способы хранения данных конкретной структуры. Например, в формате <code>json</code> хранят сложные структуры данных, а формат <code>xml</code> используется для обмена данными между компьютером и приложением.</p>
+<h2 id="csv">Формат CSV</h2>
+<p>Существует много данных, которые представлены в табличном виде. Нам известно множество форматов для электронных таблиц и соответствующих редакторов. Однако универсальным табличным форматом является <code>csv</code>. Термин <em>"comma-separated value"</em> и аббревиатура <em>"CSV"</em> появился в 1983 году. Тогда еще в <em>IBM PC</em> использовались подобного рода конструкции.</p>
+<p><img alt="csv_1.png" src="../images/csv_1.png" /></p>
+<p>Файл <code>csv</code> удовлетворяет следующим требованиям:</p>
+<ul>
+<li>строки делятся переносом строки,</li>
+<li>ячейки делятся запятыми или точкой с запятой,</li>
+<li>если ячейка содержит запятую или перенос строки, ячейка обрамляется кавычками,</li>
+<li>если внутри системных кавычек есть кавычки, они пишутся в виде двойных кавычек.</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Как записать таблицу</label><label for="__tabbed_1_2">Как выглядит таблица</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Инфо,x,y<br>
+'квартал 1',1,2<br>
+'квартал 2',2,4<br>
+'квартал 3',3,6<br>
+'квартал 4',4,8<br>
+,,Итого</p>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Инфо</th>
+<th style="text-align: left;">x</th>
+<th style="text-align: left;">y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">квартал 1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">квартал 2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">квартал 3</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr>
+<td style="text-align: left;">квартал 4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Итого</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<h3 id="csv-">Операции с CSV-файлами</h3>
+<p>Для работы методов csv необходимо импортировать встроенную библиотеку csv</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span> <span class="nn">csv</span>
+</code></pre></div>
+<p><strong>Чтение csv файла</strong></p>
+<p>Функция <code>reader()</code> создаст объект, из которого можно построчно извлечь всю информацию из таблицы в виде списка списков. Рассмотрим табличный файл <em>codes.csv</em>, который содержит информацию о валютах и расшифровках.</p>
+<p>Скачать файл можно <a href="../files/codes.csv">по ссылке</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">currencies</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;codes.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="n">csv_data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_data</span><span class="p">:</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="n">currencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Вся информация о таблице: </span><span class="si">{</span><span class="n">currencies</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Запись csv файла</strong></p>
+<p>Функция <code>writer()</code> позволяет записывать файл или добавлять в него. В данном примере добавляем строку в виде списка. Для создания новой строки в файле <em>codes.csv</em> необходимо использовать параметр функции open – <code>newline</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">new_currency</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GBP&#39;</span><span class="p">,</span> <span class="s1">&#39;826&#39;</span><span class="p">,</span> <span class="s1">&#39;Pound sterling&#39;</span><span class="p">]</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;codes.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_csv</span><span class="p">:</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">out_csv</span><span class="p">)</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">new_currency</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Запись в csv из списка списков</strong></p>
+<p>Процесс работы с табличными данным похож в Python на работу со списками.
+И если мы очень захотим, мы сможем создать файл <code>csv</code> с помощью списка из списков.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">my_favorite_songs</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="p">[</span><span class="s1">&#39;Song name&#39;</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">],</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="p">[</span><span class="s1">&#39;Waste a Moment&#39;</span><span class="p">,</span> <span class="mf">3.03</span><span class="p">],</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="p">[</span><span class="s1">&#39;New Salvation&#39;</span><span class="p">,</span> <span class="mf">4.02</span><span class="p">],</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="p">[</span><span class="s1">&#39;Staying</span><span class="se">\&#39;</span><span class="s1"> Alive&#39;</span><span class="p">,</span> <span class="mf">3.40</span><span class="p">],</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="p">[</span><span class="s1">&#39;Out of Touch&#39;</span><span class="p">,</span> <span class="mf">3.03</span><span class="p">],</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="p">[</span><span class="s1">&#39;A Sorta Fairytale&#39;</span><span class="p">,</span> <span class="mf">5.28</span><span class="p">],</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="p">[</span><span class="s1">&#39;Easy&#39;</span><span class="p">,</span> <span class="mf">4.15</span><span class="p">],</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    <span class="p">[</span><span class="s1">&#39;Beautiful Day&#39;</span><span class="p">,</span> <span class="mf">4.04</span><span class="p">],</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="p">]</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;out.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_csv</span><span class="p">:</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">out_csv</span><span class="p">)</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">my_favorite_songs</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>DictReader. Колонка, как словарь</strong></p>
+<p>Объект <code>DictReader</code> позволяет использовать особенности словарей Python.
+Зачастую нам не нужна вся таблица, а только определенная часть информации из неё. По этой причине, <strong>словари позволяют получить доступ к столбцам таблиц по их заголовкам</strong>. Аргумент <code>delimeter</code> указывает на символ-разделитель между ячейками.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">codes</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;codes.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>        <span class="n">currency_code</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>        <span class="n">codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currency_code</span><span class="p">)</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Список валют: </span><span class="si">{</span><span class="n">codes</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Запись через DictWriter</strong></p>
+<p><code>DictWriter</code> выполняет запись в файл, но уже при помощи словарей Python.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">f_names</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Code&#39;</span><span class="p">,</span> <span class="s1">&#39;Num&#39;</span><span class="p">,</span> <span class="s1">&#39;Currency&#39;</span><span class="p">)</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">new_currency</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Code&#39;</span><span class="p">:</span> <span class="s1">&#39;RSD&#39;</span><span class="p">,</span><span class="s1">&#39;Num&#39;</span><span class="p">:</span> <span class="s1">&#39;941&#39;</span> <span class="p">,</span><span class="s1">&#39;Currency&#39;</span><span class="p">:</span> <span class="s1">&#39;Serbian dinar&#39;</span><span class="p">}</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;codes.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_file</span><span class="p">:</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">f_names</span><span class="p">)</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">new_currency</span><span class="p">)</span>
+</code></pre></div>
+<p>Что же будет, если ключи словаря на запись будут отличны от ключей, заданных аргументом <code>fieldnames</code>? В этом случается Python выдает ошибку <code>ValueError</code> с перечнем ключей, в которых была ошибка.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">wrong_currency</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="s1">&#39;RSD&#39;</span><span class="p">,</span><span class="s1">&#39;num&#39;</span><span class="p">:</span> <span class="s1">&#39;941&#39;</span> <span class="p">,</span><span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;Serbian dinar&#39;</span><span class="p">}</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;codes.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_file</span><span class="p">:</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">f_names</span><span class="p">)</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">wrong_currency</span><span class="p">)</span>
+</code></pre></div>
+<details class="info">
+<summary>Как определить delimeter в неизвестном файле csv?</summary>
+<p>Существуют параметры, связанные непосредственно с чтением и записью CSV-файлов. Так, в примерах выше, мы явно указывали тип разделителя для полей (<code>delimiter=','</code>) Подобные параметры, определяют правила, по которым будет считана или записана информация CSV файла. Чтобы не настраивать каждый раз все параметры вручную, они были сгруппированы в объекты dialects.</p>
+<p>Если вы не знаете, какие параметры диалекта использовались в файле, то необходимо воспользоваться объектом <code>csv.Sniffer()</code>. Метод <code>sniff()</code> позволяет по примеру строки восстановить параметры используемого диалекта.
+Передав найденные параметры класс <code>reader</code>, мы с его помощью сможем корректно прочесть информацию из файла. Указание кодировки <em>utf-8</em> позволяет избежать конфликтов с некорректной интерпретацией строк внутри кавычек.</p>
+<p>Скачайте файл codes_oth.csv <a href="">по ссылке</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">import</span> <span class="nn">csv</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;По умолчанию доступны следующие диалекты </span><span class="si">{</span><span class="n">csv</span><span class="o">.</span><span class="n">list_dialects</span><span class="p">()</span><span class="si">}</span><span class="s1">’)</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;codes_oth.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    <span class="n">dialect</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">Sniffer</span><span class="p">()</span><span class="o">.</span><span class="n">sniff</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">csvfile</span><span class="o">.</span><span class="n">readline</span><span class="p">()),</span> <span class="p">[</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;;&#39;</span><span class="p">])</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    <span class="n">csvfile</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">dialect</span><span class="p">)</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">dialect</span><span class="p">)</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<details class="info">
+<summary>Позиционирование в файле</summary>
+<p>Файл можно представить как ленту на шоколадной фабрике, только вместо конфет – байты. Лента имеет начало и конец, каждая конфета пронумерована. Мы можем ходить вдоль ленты - брать или класть конфеты. Если файл открыт только для чтения (посмотреть на конфеты) – то при открытии файла стоим вначале ленты, на 0 месте. А при самом чтении - сдвигаемся вдоль ленты на количество прочитанных конфет.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1">## Текущая позиция в файле file.tell()</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;yesterday.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">())</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1">## курсор чтения находится в начале </span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;читаем 100 символов&#39;</span><span class="p">)</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="c1">## прочитать 100 символов</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="c1">## 100. Это значение в байтах!</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">())</span>
+</code></pre></div>
+<p>Значение при перемещении по файлу, символы которого записаны кириллицей, будет больше, так как файл каждый кириллический символ занимает 2 байта.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;borodino.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="c1"># прочитать 100 символов</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">())</span> <span class="c1"># 180</span>
+</code></pre></div>
+<p>Позицию для чтения можно менять с помощью <code>file.seek()</code></p>
+<ul>
+<li><code>io.SEEK_SET</code> - начало файла</li>
+<li><code>io.SEEK_CUR</code> - текущая позиция</li>
+<li><code>io.SEEK_END</code> - конец файла</li>
+</ul>
+<p>Зададим поиск от начала того же файла. Параметр 0 означает количество байт, на которое нужно сдвинуться от указанной позиции. При введение некорректного количества байт получим ошибку <code>UnicodeDecodeError</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">import</span> <span class="nn">io</span> <span class="c1"># для работы вводом-выводом</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="c1">## прочитаем до 100 символа файл borodino.txt</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;borodino.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="c1">## вернемся в начало файла</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="n">new_position</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">SEEK_SET</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<h3 id="csv_1">Применение CSV формата</h3>
+<p>Формат csv популярен в <a href="https://ru.wikipedia.org/wiki/%D0%9D%D0%B0%D1%83%D0%BA%D0%B0_%D0%BE_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85">Data Science</a>, так как в нём можно хранить большое количество упорядоченных данных. В <code>csv</code> формате также можно делать экспорт из реляционных баз данных. Также на практике активно используется пакет <code>pandas</code> для расширенной работы с табличными данными.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">streets_of_houses</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;houses.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>        <span class="n">house_street</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>        <span class="n">streets_of_houses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">house_street</span><span class="p">)</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cписок улиц домов: </span><span class="si">{</span><span class="nb">set</span><span class="p">(</span><span class="n">streets_of_houses</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="json">Формат JSON</h2>
+<p>Формат <code>JSON</code> <em>(или JavaScript Object Notation)</em> был создан в <code>JavaScript</code>, но несмотря на это он является полностью независимым и универсальным. Как правило любой современный язык программирования поддерживает этот формат в той или иной форме, что позволяет использовать <code>JSON</code> для обмена данными.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Как записать json</label><label for="__tabbed_2_2">Как выглядит json в браузере</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">{</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="nt">&quot;FirstName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dominick&quot;</span><span class="p">,</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="nt">&quot;LastName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cobb&quot;</span><span class="p">,</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span><span class="nt">&quot;Address&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">        </span><span class="nt">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Los Angeles&quot;</span><span class="p">,</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">        </span><span class="nt">&quot;StreetAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;S Olive st 617&quot;</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">    </span><span class="nt">&quot;ContactDetails&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">        </span><span class="nt">&quot;PhoneNumbers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;+1 212-626-8118&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+1 212-484-4554&quot;</span><span class="p">],</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">        </span><span class="nt">&quot;E-mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inception@nolan.genii&quot;</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="err">Firs</span><span class="kc">t</span><span class="err">Name</span><span class="p">:</span><span class="w">          </span><span class="s2">&quot;Dominick&quot;</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="err">Las</span><span class="kc">t</span><span class="err">Name</span><span class="p">:</span><span class="w">           </span><span class="s2">&quot;Cobb&quot;</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="err">Address</span><span class="p">:</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="err">ci</span><span class="kc">t</span><span class="err">y</span><span class="p">:</span><span class="w">           </span><span class="s2">&quot;Los Angeles&quot;</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="err">S</span><span class="kc">treet</span><span class="err">Address</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;S Olive st 617&quot;</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="err">Co</span><span class="kc">nta</span><span class="err">c</span><span class="kc">t</span><span class="err">De</span><span class="kc">ta</span><span class="err">ils</span><span class="p">:</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">    </span><span class="err">Pho</span><span class="kc">ne</span><span class="err">Numbers</span><span class="p">:</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">        </span><span class="mi">0</span><span class="p">:</span><span class="w">          </span><span class="s2">&quot;+1 212-626-8118&quot;</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">        </span><span class="mi">1</span><span class="p">:</span><span class="w">          </span><span class="s2">&quot;+1 212-484-4554&quot;</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">    </span><span class="err">E</span><span class="mi">-</span><span class="err">mail</span><span class="p">:</span><span class="w">         </span><span class="s2">&quot;inception@nolan.genii&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Если формат <code>CSV</code> удобен для хранения двумерных массивов данных, то <code>JSON</code> удобнее использовать для хранения сложных структур данных.</p>
+<p>Создавать сложные иерархии позволяет тот факт, что в роли "значения", могут выступать:</p>
+<ul>
+<li><code>object</code> (аналог словаря dict)</li>
+<li><code>array</code> (аналог списка - list)</li>
+<li><code>string</code> (str)</li>
+<li><code>number</code> (int, float)</li>
+<li><code>true/false</code> (True/False)</li>
+<li><code>null</code> (None)</li>
+</ul>
+<p>Используя <code>object</code>, можно добавлять уровни вложенности.</p>
+<h3 id="json-">Операции с JSON-файлами</h3>
+<p><strong>Запись json в словаре</strong></p>
+<p><strong>Структуру <code>JSON</code> в Python можно представить в виде словаря.</strong> Это позволяет фиксировать многоуровневую вложенность и проводить запись в формат <code>JSON</code> и загрузку из него.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>   <span class="s2">&quot;FirstName&quot;</span><span class="p">:</span> <span class="s2">&quot;Dominick&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>   <span class="s2">&quot;LastName&quot;</span><span class="p">:</span> <span class="s2">&quot;Cobb&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>   <span class="s2">&quot;Adress&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>       <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;Los Angeles&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>       <span class="s2">&quot;StreetAdress&quot;</span><span class="p">:</span> <span class="s2">&quot;S Olive st 617&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>   <span class="p">},</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>   <span class="s2">&quot;ContactDetails&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>       <span class="s2">&quot;PhoneNumbers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;+1 212-626-8118&quot;</span><span class="p">,</span> <span class="s2">&quot;+1 212-484-4554&quot;</span><span class="p">],</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>       <span class="s2">&quot;E-mail&quot;</span><span class="p">:</span> <span class="s2">&quot;inception@nolan.genii&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>   <span class="p">}</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Сериализация</strong></p>
+<p>Процесс сериализации означает трансформацию данных в байты, то есть в структурированный формат данных, который может быть прочитан и изменен любой другой программой. <strong>По сути мы говорим о привычной записи в файл</strong>.</p>
+<p>Для сериализации используют несколько функций. Функция <code>dump()</code> — запись в файл.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Dom.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">write_file</span><span class="p">:</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">write_file</span><span class="p">)</span>
+</code></pre></div>
+<p>Функция <code>dumps()</code> — запись в переменную.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+<p>Таким образом полученный словарь будет преобразован в формат JSON в виде строки</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+</code></pre></div>
+<p>Функция <code>dumps()</code> имеет несколько интересных параметров. Параметр <code>indent</code> отвечает за отступы.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">json_data_with_indent</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cтрока с отступами: </span><span class="si">{</span><span class="n">json_data_with_indent</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Dom#2.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+</code></pre></div>
+<p>Параметр <code>sort_keys</code> позволяет отсортировать словарь по именам ключей, что в некоторых случаях тоже бывает полезно.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">json_data_sorted</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;В результате ключи будут отсортированы: </span><span class="si">{</span><span class="n">json_data_sorted</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Десериализация</strong></p>
+<p>Процесс десериализации <code>JSON</code> — это обратный процесс сериализации, то есть преобразование данных из формата JSON в объекты pyhton (декодирование данных). Также, можно считать, что <strong>десериализациия — это процесс чтения их файла</strong>.</p>
+<p>Для чтения из json-файла используется функция <code>load()</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Dom#2.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">read_file</span><span class="p">:</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>    <span class="n">loaded_json_file</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">read_file</span><span class="p">)</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">loaded_json_file</span><span class="p">)</span>
+</code></pre></div>
+<p>В итоге строка, которую мы загрузили в файл <em>Dom#2</em>, превратилась обратно в словарь.</p>
+<p>Аналогично словарю, можно получить доступ к нужному полю.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">loaded_json_file</span><span class="p">[</span><span class="s2">&quot;FirstName&quot;</span><span class="p">])</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">loaded_json_file</span><span class="p">[</span><span class="s2">&quot;Address&quot;</span><span class="p">][</span><span class="s2">&quot;city&quot;</span><span class="p">])</span>
+</code></pre></div>
+<p>Чтобы прочитать json-строку из переменной используется функция <code>loads()</code>. Строка превращается обратно в словарь.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">loaded_json_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;: </span><span class="si">{</span><span class="n">loaded_json_str</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="_2">Другие форматы обмена данными</h2>
+<h3 id="xml">Формат XML</h3>
+<p>Помимо <code>JSON</code> существует ещё несколько форматов для обмена данными. Один из них <code>XML</code> <em>(eXtensible Markup Language, «расширенный язык разметки»)</em>. <strong>Формат <code>XML</code> представляет собой данные, обрамленные тегом, состоящим из открывающих и закрывающих элементов.</strong> Такое объединение само по себе способно быть представленным в поле данных, что позволяет нам строить иерархию.</p>
+<p>Пример xml-файла</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nt">&lt;data&gt;</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w"> </span><span class="nt">&lt;name&gt;</span>Petya<span class="nt">&lt;/name&gt;</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w"> </span><span class="nt">&lt;age&gt;</span>23<span class="nt">&lt;/age&gt;</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w"> </span><span class="nt">&lt;sex&gt;</span>true<span class="nt">&lt;/sex&gt;</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="w"> </span><span class="nt">&lt;languages&gt;</span>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="w">  </span><span class="nt">&lt;language</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Python&quot;</span><span class="nt">&gt;</span>9<span class="nt">&lt;/language&gt;</span>
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="w">  </span><span class="nt">&lt;language</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Java&quot;</span><span class="nt">&gt;</span>7<span class="nt">&lt;/language&gt;</span>
+<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="w">  </span><span class="nt">&lt;language</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;C#&quot;</span><span class="nt">&gt;</span>8<span class="nt">&lt;/language&gt;</span>
+<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="w">  </span><span class="nt">&lt;language1</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;C#&quot;</span><span class="nt">&gt;</span>8<span class="nt">&lt;/language1&gt;</span>
+<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a><span class="w"> </span><span class="nt">&lt;/languages&gt;</span>
+<a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="w">  </span><span class="nt">&lt;pc&gt;</span>
+<a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a><span class="w">    </span><span class="nt">&lt;pc_item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;os&quot;</span><span class="nt">&gt;</span>Linux<span class="nt">&lt;/pc_item&gt;</span>
+<a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a><span class="w">    </span><span class="nt">&lt;pc_item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;proc&quot;</span><span class="nt">&gt;</span>Intel<span class="w"> </span>Core<span class="w"> </span>i7-8700<span class="nt">&lt;/pc_item&gt;</span>
+<a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a><span class="w">    </span><span class="nt">&lt;pc_item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ram&quot;</span><span class="nt">&gt;</span>64<span class="nt">&lt;/pc_item&gt;</span>
+<a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a><span class="w">    </span><span class="nt">&lt;pc_item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;hard&quot;</span><span class="nt">&gt;</span>5000<span class="nt">&lt;/pc_item&gt;</span>
+<a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a><span class="w">  </span><span class="nt">&lt;/pc&gt;</span>
+<a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a><span class="nt">&lt;/data&gt;</span>
+</code></pre></div>
+<h3 id="xml_1">Операции с XML</h3>
+<p>С сайта нам поступают резюме кандидатов в формате <code>xml</code>. Необходимо разбить на части <em>(распарсить)</em> имеющийся документ с помощью метода <code>parse()</code>.</p>
+<p>Скачайте файл <a href="../files/demo.xml">по ссылке</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ETree</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="n">developers_cv</span> <span class="o">=</span> <span class="n">ETree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;demo.xml&#39;</span><span class="p">)</span> <span class="c1"># распарсим</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="n">root_of_developers_cv</span> <span class="o">=</span> <span class="n">developers_cv</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span> <span class="c1"># корень дерева</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">root_of_developers_cv</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span> <span class="c1"># название корневого тэга</span>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">root_of_developers_cv</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># текста в нём нет</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">root_of_developers_cv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span> <span class="c1"># следующий элемент, название тэга, </span>
+<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">root_of_developers_cv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># текст внутри</span>
+</code></pre></div>
+<p>Вытащим информацию о языках программирования, перебрав корень дерева</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">skills</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="k">for</span> <span class="n">langs</span> <span class="ow">in</span> <span class="n">root_of_developers_cv</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>    <span class="n">skills</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">langs</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;В резюме указаны следующие ЯП: </span><span class="si">{</span><span class="n">skills</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="yaml">Формат YAML</h3>
+<p>Ещё один из схожих форматов — <code>YAML</code>. Сперва он носил название: <em>Yet Another Markup Language</em> и позиционировался как конкурент <code>XML</code>. Однако позже название изменили на <em>YAML Ain't Markup Language</em>. Так создатели пытались сказать, что они меньше внимания уделяют разметке, а больше самим данным, что и отражается в его структуре, читать которую можно интуитивно.</p>
+<p>Пример yaml-файла</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nt">Developers</span><span class="p">:</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w"> </span><span class="nt">martin</span><span class="p">:</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Martin D&#39;vloper</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">   </span><span class="nt">job</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Developer</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">   </span><span class="nt">skills</span><span class="p">:</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span>
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">perl</span>
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pascal</span>
+<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="w"> </span><span class="nt">tabitha</span><span class="p">:</span>
+<a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a><span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tabitha Bitumen</span>
+<a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a><span class="w">   </span><span class="nt">job</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Developer</span>
+<a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a><span class="w">   </span><span class="nt">skills</span><span class="p">:</span>
+<a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a><span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lisp</span>
+<a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a><span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fortran</span>
+<a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a><span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">erlang</span>
+<a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a><span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span>
+</code></pre></div>
+<h3 id="yaml_1">Операции с YAML</h3>
+<p>Пакет <code>yaml</code> является внешним, поэтому его необходимо сначала установить.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pyyaml
+</code></pre></div>
+<p>Теперь мы получили резюме в формате <code>yaml</code>. Полученное резюме превратим в словарь с помощью функции <code>load()</code>, предварительно прочитав файл.</p>
+<p>Скачайте файл с резюме <a href="../files/yaml_example.yaml">по ссылке</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kn">import</span> <span class="nn">yaml</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;yaml_example.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>    <span class="n">martins_resume_in</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">FullLoader</span><span class="p">)</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">martins_resume_in</span><span class="p">)</span>  <span class="c1"># &lt;class &#39;dict&#39;&gt;</span>
+</code></pre></div>
+<p>Обратная операция восстановила структуру, превратив словарь в строку через функцию <code>dump()</code>, соответствующую формату yaml.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="n">martins_resume_out</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">martins_resume_in</span><span class="p">)</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">martins_resume_out</span><span class="p">)</span>  <span class="c1"># &lt;class &#39;str&#39;&gt;</span>
+</code></pre></div>
+<h2 id="_3">Промежуточные итоги</h2>
+<ul>
+<li>Файл является объектом в Python и представлен как поток байтов.</li>
+<li>Файлы необходимо закрывать. Поэтому удобно использовать оператор with.</li>
+<li>Приложению передают данные между собой с помощью форматов csv, json, xml, yaml.</li>
+<li>Формат csv является табличной структурой, где данные можно выгрузить/записать в виде строк или в виде словарей, где ключ – это название колонки.</li>
+<li>Формат json хранит сложные структуры данных и представлены в Python в виде словарей.</li>
+<li>Формат xml и yaml имеют древовидную структуру и используются для передачи между приложениями и удобным форматом для чтения разработчиком.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Нижний колонтитул" >
+        
+          
+          <a href="../site_package/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Внешние пакеты. Пакеты pandas, python-docx">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Внешние пакеты. Пакеты pandas, python-docx
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../bytes/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Кодировки и байты">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Кодировки и байты
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/pyshkovni"  target="_blank" rel="noopener">Nikita Pyshkov</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/pyshkovni" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.youtube.com/channel/UCFl8u5LGFv0UqhfP5whEoVA" target="_blank" rel="noopener" title="www.youtube.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305m-317.51 213.508V175.185l142.739 81.205z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://t.me/pyshkovni" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8m114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.45 10.45 0 0 1 3.53 6.716 43.8 43.8 0 0 1 .417 9.769"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://vk.com/pyshkovni" target="_blank" rel="noopener" title="vk.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M31.49 63.49C0 94.982 0 145.672 0 247.04v17.92c0 101.369 0 152.059 31.49 183.549C62.982 480 113.672 480 215.04 480h17.92c101.369 0 152.059 0 183.549-31.491C448 417.019 448 366.329 448 264.96v-17.92c0-101.369 0-152.059-31.491-183.55C385.019 32 334.329 32 232.96 32h-17.92C113.671 32 62.981 32 31.49 63.49M75.6 168.268h51.147c1.68 85.493 39.386 121.706 69.253 129.173V168.267h48.16V242c29.493-3.173 60.48-36.773 70.933-73.733h48.16a142.26 142.26 0 0 1-65.52 92.96 147.35 147.35 0 0 1 76.72 93.52H321.44a92.15 92.15 0 0 0-77.28-66.64v66.64h-5.787c-102.106 0-160.346-70-162.773-186.48"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.sections", "navigation.instant", "navigation.footer", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6f25eb3.min.js"></script>
+      
+    
+  </body>
+</html>
